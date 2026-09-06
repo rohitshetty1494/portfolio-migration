@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/Users/rohitshetty/Projects/portfolio-migration/.claude/serve.py"],
+      "port": 4173,
+      "autoPort": true
+    }
+  ]
+}
