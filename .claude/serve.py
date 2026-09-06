@@ -2,7 +2,10 @@ import http.server
 import os
 
 PORT = int(os.environ.get("PORT", 4173))
-DIRECTORY = "/Users/rohitshetty/Projects/portfolio-migration/rohitshettydesigns.webflow.io"
+DIRECTORY = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+    "rohitshettydesigns.webflow.io",
+)
 
 
 def handler(*args, **kwargs):
