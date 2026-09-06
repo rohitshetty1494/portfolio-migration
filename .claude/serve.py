@@ -4,7 +4,7 @@ import os
 PORT = int(os.environ.get("PORT", 4173))
 DIRECTORY = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "rohitshettydesigns.webflow.io",
+    "docs",
 )
 
 
