@@ -1,8 +1,10 @@
 import { useState } from "react";
+import Button from "./Button.jsx";
 
 // All literal values below come from design-system-mcp/tokens.json.
-// No typography tokens exist in the token file, so font-family/size/weight
-// are intentionally left unset (browser default) rather than guessed.
+// No typography tokens exist for form fields, so font-family/size/weight
+// on labels/inputs are intentionally left unset (browser default) rather
+// than guessed. Button typography comes from tokens.typography (see Button.jsx).
 const styles = {
   form: {
     display: "flex",
@@ -21,22 +23,16 @@ const styles = {
     color: "#111827ff", // semantics.text-heading -> primitives.grey - 900 (no input-text token exists)
     backgroundColor: "#ffffffff", // primitives.white (no input-bg token exists)
   },
-  button: {
-    padding: 8, // spatial.spacing-sm
-    borderRadius: 8, // spatial.radius-md
-    backgroundColor: "#2563ebff", // semantics.button-bg-primary -> primitives.blue - 500
-    color: "#ffffffff", // semantics.button-text-primary -> primitives.white
-    border: "none",
-  },
-  buttonHover: {
-    backgroundColor: "#1d4ed8ff", // semantics.button-bg-primary-hover -> primitives.blue - 600
+  buttonRow: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 8, // spatial.spacing-sm
   },
 };
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isHovering, setIsHovering] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,17 +68,17 @@ export default function LoginForm() {
         />
       </div>
 
-      <button
-        type="submit"
-        style={{
-          ...styles.button,
-          ...(isHovering ? styles.buttonHover : {}),
-        }}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        Log In
-      </button>
+      <div style={styles.buttonRow}>
+        <Button type="submit" variant="primary">
+          Primary
+        </Button>
+        <Button type="button" variant="secondary">
+          Primary
+        </Button>
+        <Button type="button" variant="tertiary">
+          Primary
+        </Button>
+      </div>
     </form>
   );
 }
