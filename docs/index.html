@@ -350,7 +350,7 @@ new CircleType(document.getElementById('circletext3'));
     var progress = scrolledIntoSection / sectionHeight;
     if(progress < 0) progress = 0;
     if(progress > 1) progress = 1;
-    var hideAt = 0.75;
+    var hideAt = 0.9;
     var opacity = progress >= hideAt ? 0 : 1 - (progress / hideAt);
     arrow.style.opacity = opacity;
     arrow.style.pointerEvents = opacity <= 0.05 ? 'none' : 'auto';
