@@ -269,6 +269,30 @@ revealContainers.forEach((container) => {
 
 });
 
+let revealUp = document.querySelectorAll(".reveal");
+revealUp.forEach((el) => {
+  gsap.set(el, { opacity: 0, y: 28 });
+  gsap.to(el, {
+    scrollTrigger: { trigger: el, start: "top 85%" },
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+});
+
+let revealScale = document.querySelectorAll(".reveal-scale");
+revealScale.forEach((el) => {
+  gsap.set(el, { opacity: 0, scale: 0.95 });
+  gsap.to(el, {
+    scrollTrigger: { trigger: el, start: "top 85%" },
+    opacity: 1,
+    scale: 1,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+});
+
 </script>
 
 <!-- Google Tag Manager (noscript) -->
