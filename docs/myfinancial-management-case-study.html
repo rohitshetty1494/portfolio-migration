@@ -258,16 +258,10 @@ revealContainers.forEach((container) => {
   });
 
   tl.set(container, { autoAlpha: 1 });
-  tl.from(container, 1.5, {
-            duration: 1.8,
-            delay: .05,
-            y: 200,
-            skewY: 5,
-            stagger: {
-                amount: 0.05
-            },
-            
-            ease: "stepped.out"
+  tl.from(container, {
+            duration: 0.8,
+            y: 28,
+            ease: "power2.out"
   });
 
 });
