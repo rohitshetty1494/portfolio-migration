@@ -332,7 +332,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var xrayProgress = clamp01((progress - xrayStart) / (xrayEnd - xrayStart));
     xray.style.transform = 'translateY(' + (100 - xrayProgress * 100) + '%)';
 
-    var solidStart = 0.55, solidEnd = 0.8;
+    var solidStart = 0.5, solidEnd = 0.7;
     var solidProgress = clamp01((progress - solidStart) / (solidEnd - solidStart));
     solid.style.opacity = solidProgress;
   }
