@@ -324,15 +324,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(total <= 0) return;
     var progress = clamp01((-rect.top) / total);
 
-    var textStart = 0.35, textEnd = 0.55;
+    var textStart = 0.2, textEnd = 0.35;
     var textFade = clamp01((progress - textStart) / (textEnd - textStart));
     text.style.opacity = 1 - textFade;
 
-    var xrayStart = 0.2, xrayEnd = 0.45;
+    var xrayStart = 0.1, xrayEnd = 0.3;
     var xrayProgress = clamp01((progress - xrayStart) / (xrayEnd - xrayStart));
     xray.style.transform = 'translateY(' + (100 - xrayProgress * 100) + '%)';
 
-    var solidStart = 0.55, solidEnd = 0.8;
+    var solidStart = 0.35, solidEnd = 0.55;
     var solidProgress = clamp01((progress - solidStart) / (solidEnd - solidStart));
     solid.style.opacity = solidProgress;
   }
