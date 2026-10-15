@@ -335,6 +335,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var solidStart = 0.35, solidEnd = 0.55;
     var solidProgress = clamp01((progress - solidStart) / (solidEnd - solidStart));
     solid.style.opacity = solidProgress;
+    xray.style.opacity = 1 - solidProgress;
   }
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
