@@ -25,7 +25,7 @@ a.nav_link::before {
   position: absolute;
   inset: 0 -2px;
   z-index: -1;
-  background: rgba(var(--nav-glow-rgb), 0.7);
+  background: rgba(var(--nav-glow-rgb), 0.35);
   border-radius: 999px;
   filter: blur(12px);
   pointer-events: none;
@@ -33,5 +33,5 @@ a.nav_link::before {
 
 /* Get Resume button (header): backing inside the pill */
 .header-main .btn---wrap {
-  background-color: rgba(var(--nav-glow-rgb), 0.7);
+  background-color: rgba(var(--nav-glow-rgb), 0.35);
 }
