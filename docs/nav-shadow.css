@@ -1,6 +1,12 @@
-/* Dark pages: a small, soft, semi-transparent black glow behind each beige menu link
-   (Home, Projects, About) and a dark backing inside the Get Resume button, so they stay
-   readable over white images. Each glow is local to its own item; they never merge into a band. */
+/* Dark pages: a small, soft glow behind each beige menu link (Home, Projects, About) and a
+   backing inside the Get Resume button, so they stay readable over white images.
+
+   The glow uses the dark pages' own background colour (#12141d), not black. On the page
+   itself it is therefore invisible; over a white image it shows as a soft dark-navy cloud.
+   Each glow is local to its own item; they never merge into a band. */
+:root {
+  --nav-glow-rgb: 18, 20, 29; /* = background colour of the dark pages, rgb(18, 20, 29) */
+}
 
 /* Menu links.
    The glow is positioned against the link itself, so the link must be position:relative.
@@ -19,13 +25,13 @@ a.nav_link::before {
   position: absolute;
   inset: 0 -2px;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--nav-glow-rgb), 0.7);
   border-radius: 999px;
   filter: blur(12px);
   pointer-events: none;
 }
 
-/* Get Resume button (header): dark backing inside the pill */
+/* Get Resume button (header): backing inside the pill */
 .header-main .btn---wrap {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(var(--nav-glow-rgb), 0.7);
 }
