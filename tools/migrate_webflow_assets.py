@@ -201,7 +201,7 @@ def main(folder):
             return new
         out = tag_re.sub(tag_repl, text)
         out = url_sub(out)
-        out = re.sub(r'<link[^>]*rel=["\']preconnect["\'][^>]*website-files[^>]*>', '', out, flags=re.I)
+        out = re.sub(r'<link\b[^>]*website-files\.com[^>]*rel=["\']preconnect["\'][^>]*>|<link\b[^>]*rel=["\']preconnect["\'][^>]*website-files\.com[^>]*>', '', out, flags=re.I)
         if out != text:
             with open(f, 'w', encoding='utf8') as fh:
                 fh.write(out)
