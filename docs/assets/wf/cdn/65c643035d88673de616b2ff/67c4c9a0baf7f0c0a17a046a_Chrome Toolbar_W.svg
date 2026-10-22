@@ -1,0 +1,16 @@
+<svg width="1440" height="79" viewBox="0 0 1440 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1440" height="42" fill="#DFE1E5"/>
+<rect x="21" y="16" width="12" height="12" rx="6" fill="#EC6B5E"/>
+<rect x="41" y="16" width="12" height="12" rx="6" fill="#F4BF4F"/>
+<rect x="61" y="16" width="12" height="12" rx="6" fill="#61C453"/>
+<path d="M87 16C87 11.5817 90.5817 8 95 8H319C323.418 8 327 11.5817 327 16V42H87V16Z" fill="white"/>
+<path d="M355 20V25M355 30V25M355 25H350M355 25H360" stroke="#3D4043" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect width="1440" height="36" transform="translate(0 42)" fill="white"/>
+<path d="M28 60H16M16 60L22 54M16 60L22 66" stroke="#3D4043" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M48 60H60M60 60L54 54M60 60L54 66" stroke="#3D4043" stroke-opacity="0.6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M81.25 60C81.25 57.3766 83.3766 55.25 86 55.25C87.5659 55.25 88.9559 56.0078 89.8216 57.1783L88 59H93V54L90.8911 56.1089C89.7465 54.672 87.9814 53.75 86 53.75C82.5482 53.75 79.75 56.5482 79.75 60C79.75 63.4518 82.5482 66.25 86 66.25C88.4299 66.25 90.5345 64.8632 91.5681 62.8414C91.7566 62.4726 91.6105 62.0207 91.2417 61.8322C90.8729 61.6437 90.421 61.7898 90.2325 62.1586C89.4453 63.6985 87.8448 64.75 86 64.75C83.3766 64.75 81.25 62.6234 81.25 60Z" fill="#3D4043" fill-opacity="0.6"/>
+<rect x="108" y="46" width="1251" height="28" rx="14" fill="#F1F3F4"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1395 53H1381V67H1395V53ZM1390 55H1383V65H1390V55Z" fill="#3D4043" fill-opacity="0.6"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1420 55C1420 55.8284 1419.33 56.5 1418.5 56.5C1417.67 56.5 1417 55.8284 1417 55C1417 54.1716 1417.67 53.5 1418.5 53.5C1419.33 53.5 1420 54.1716 1420 55ZM1420 60.25C1420 61.0784 1419.33 61.75 1418.5 61.75C1417.67 61.75 1417 61.0784 1417 60.25C1417 59.4216 1417.67 58.75 1418.5 58.75C1419.33 58.75 1420 59.4216 1420 60.25ZM1418.5 67C1419.33 67 1420 66.3284 1420 65.5C1420 64.6716 1419.33 64 1418.5 64C1417.67 64 1417 64.6716 1417 65.5C1417 66.3284 1417.67 67 1418.5 67Z" fill="#3D4043" fill-opacity="0.6"/>
+<rect width="1440" height="1" transform="translate(0 78)" fill="#DBDCDD"/>
+</svg>
