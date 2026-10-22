@@ -1,25 +1,31 @@
-/* Dark pages: a wide, soft, semi-transparent black glow behind the beige menu links
-   (Home, Projects, About) and the Get Resume button, always on, so they stay readable
-   over white images. On the dark page background it is barely visible. */
+/* Dark pages: a small, soft, semi-transparent black glow behind each beige menu link
+   (Home, Projects, About) and a dark backing inside the Get Resume button, so they stay
+   readable over white images. Each glow is local to its own item; they never merge into a band. */
 
-/* Menu links: no stacking context on the link, so every glow sits behind ALL the link text */
-.nav_link {
-  position: relative;
-  text-shadow: none;
+/* Menu links.
+   The glow is positioned against the link itself, so the link must be position:relative.
+   On these pages "Projects" and "About" carry unused offsets (top:54%, right:32%) that would
+   move them once positioned, so the offsets are reset to auto: the links stay exactly where they were.
+   No z-index on the link, so every glow sits behind ALL the link text. */
+a.nav_link {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
 }
-.nav_link::before {
+a.nav_link::before {
   content: "";
   position: absolute;
-  inset: 6px -28px;
+  inset: 0 -2px;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.56);
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 999px;
-  filter: blur(28px);
+  filter: blur(12px);
   pointer-events: none;
 }
 
-/* Get Resume button: translucent dark backing inside the pill and a soft halo around it */
+/* Get Resume button (header): dark backing inside the pill */
 .header-main .btn---wrap {
-  background-color: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
 }
