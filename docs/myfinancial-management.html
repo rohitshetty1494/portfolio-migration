@@ -326,4 +326,24 @@ var options = {
          grainWidth: 1,
          grainHeight: 1
  };grained('#grain', options)
-</script><script>(function(){function killBadge(){document.querySelectorAll(".w-webflow-badge, #webflow-badge").forEach(function(el){el.remove();});}killBadge();new MutationObserver(killBadge).observe(document.documentElement,{childList:true,subtree:true});})();</script><script src="header-scroll.js"></script></body></html>
+</script><script>(function(){function killBadge(){document.querySelectorAll(".w-webflow-badge, #webflow-badge").forEach(function(el){el.remove();});}killBadge();new MutationObserver(killBadge).observe(document.documentElement,{childList:true,subtree:true});})();</script><script src="header-scroll.js"></script><script id="mfm-title-spacing">
+/* Match the Bosch case study: hero title starts ~176px from page top on a 1920px-wide window.
+   Measures real layout and sets the padding on the hero block, so unknown Webflow spacing does not matter.
+   To nudge: change TOP (px at 1920px width). */
+(function () {
+  var TOP = 176, BASE = 1920;
+  function docTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
+  function apply() {
+    var box = document.querySelector('.div-block-462');
+    var h = box && box.querySelector('h2');
+    if (!box || !h) return;
+    box.style.paddingTop = '0px';
+    var target = Math.max(88, Math.min(200, Math.round(window.innerWidth * TOP / BASE)));
+    box.style.paddingTop = Math.max(0, target - docTop(h)) + 'px';
+  }
+  document.addEventListener('DOMContentLoaded', apply);
+  window.addEventListener('load', apply);
+  window.addEventListener('resize', apply);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+})();
+</script></body></html>
