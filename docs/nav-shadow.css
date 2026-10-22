@@ -1,9 +1,25 @@
-/* Dark pages: a soft black shadow behind the beige menu links (Home, Projects, About)
-   so they stay readable at all times, including over white images. Invisible on dark backgrounds. */
+/* Dark pages: a wide, soft, semi-transparent black glow behind the beige menu links
+   (Home, Projects, About) and the Get Resume button, always on, so they stay readable
+   over white images. On the dark page background it is barely visible. */
+
+/* Menu links: no stacking context on the link, so every glow sits behind ALL the link text */
 .nav_link {
-  text-shadow:
-    0 0 2px rgba(0, 0, 0, 0.9),
-    0 0 6px rgba(0, 0, 0, 0.8),
-    0 0 14px rgba(0, 0, 0, 0.65),
-    0 0 28px rgba(0, 0, 0, 0.5);
+  position: relative;
+  text-shadow: none;
+}
+.nav_link::before {
+  content: "";
+  position: absolute;
+  inset: 6px -28px;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.56);
+  border-radius: 999px;
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+/* Get Resume button: translucent dark backing inside the pill and a soft halo around it */
+.header-main .btn---wrap {
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.3);
 }
