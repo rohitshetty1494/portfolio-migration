@@ -7,7 +7,6 @@
       "Bash(curl -sI http://localhost:4173/index.html)",
       "Bash(python3 -c ' *)",
       "Bash(python3)",
-      "Bash(tidy -q -indent --show-warnings no --force-output yes -o /tmp/bosch.pretty.html bosch-ngtm-case-study.html)",
       "Bash(rsync -a --delete /Users/rohitshetty/Projects/portfolio-migration/rohitshettydesigns.webflow.io/ /private/tmp/claude-501/-Users-rohitshetty-Desktop-portfolio-migration/ff282440-8d63-45e5-90b5-8955e5e9bfa3/scratchpad/site/)",
       "Bash(curl -s \"https://cdn.prod.website-files.com/65c643035d88673de616b2ff/css/rohitshettydesigns.webflow.shared.aaa882da4.css\" -o /tmp/shared.css)",
       "Bash(curl -s http://localhost:4173/index.html)",
