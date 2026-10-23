@@ -13812,7 +13812,7 @@ strong {
 }
 
 .tab-item {
-  letter-spacing: -.01em;
+  letter-spacing:normal;
   font-size: .8em;
   font-weight: 400;
 }
@@ -15153,7 +15153,7 @@ strong {
 }
 
 .menu-item {
-  letter-spacing: -.03em;
+  letter-spacing:normal;
   justify-content: space-between;
   align-items: center;
   padding-right: .2em;
@@ -15624,7 +15624,7 @@ strong {
 
 .feature-icon-wrapper.white {
   color: #dbe2f0;
-  letter-spacing: -.05em;
+  letter-spacing:normal;
   background-color: #fff;
   justify-content: center;
   align-items: center;
@@ -16103,7 +16103,7 @@ strong {
 .small-card-header {
   color: #1e1e21;
   text-align: center;
-  letter-spacing: -.025em;
+  letter-spacing:normal;
   justify-content: center;
   margin-top: .3em;
   margin-bottom: .4em;
@@ -16143,7 +16143,7 @@ strong {
 .benefits-description {
   color: #687076;
   text-align: center;
-  letter-spacing: -.025px;
+  letter-spacing:normal;
   min-width: 200px;
   margin-top: 0;
   font-size: .9em;
@@ -24026,7 +24026,7 @@ strong {
 }
 
 .project-details {
-  letter-spacing: -.06px;
+  letter-spacing:normal;
   font-size: 20px;
   line-height: 1.6;
 }
@@ -24559,7 +24559,7 @@ strong {
 }
 
 .heading-style-h1 {
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   font-size: 4.75rem;
   font-weight: 500;
   line-height: 5rem;
@@ -24602,7 +24602,7 @@ strong {
 }
 
 .cta-large-button_text {
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   font-size: 4.75rem;
   font-weight: 500;
   line-height: 5rem;
@@ -24834,7 +24834,7 @@ strong {
 
 .improved-usability-and-accessibility-in-dispute-and-promise-statuses {
   color: #e2e4ec;
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   font-family: Polysans Neutral, Arial, sans-serif;
   font-size: 40px;
   font-weight: 400;
@@ -24888,7 +24888,7 @@ strong {
 }
 
 .heading-size-6 {
-  letter-spacing: -.01em;
+  letter-spacing:normal;
   text-transform: none;
   font-size: 6rem;
   font-weight: 300;
@@ -25185,7 +25185,7 @@ strong {
 
 .cta_looping-text_wrap {
   grid-column-gap: 1.25rem;
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   white-space: nowrap;
   align-items: center;
   font-size: 4.75rem;
@@ -25427,7 +25427,7 @@ strong {
 }
 
 .text-size-large-2 {
-  letter-spacing: -.019em;
+  letter-spacing:normal;
   font-size: 1.5rem;
   line-height: 2rem;
 }
@@ -25630,7 +25630,7 @@ strong {
 
 .text-size-medium-4 {
   color: #e2ebedcc;
-  letter-spacing: -.001em;
+  letter-spacing:normal;
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
@@ -25662,7 +25662,7 @@ strong {
 }
 
 .text-size-large-3 {
-  letter-spacing: -.019em;
+  letter-spacing:normal;
   font-size: 1.5rem;
   line-height: 2rem;
 }
@@ -25839,7 +25839,7 @@ strong {
 .heading-size-3-5-2 {
   color: #e2e4ec;
   text-align: left;
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   font-family: Polysans Neutral, Arial, sans-serif;
   font-size: 40px;
   font-weight: 400;
@@ -25945,7 +25945,7 @@ strong {
 
 .heading-size-3-5-3 {
   color: #e2e4ec;
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   font-family: Polysans Neutral, Arial, sans-serif;
   font-size: 40px;
   font-weight: 400;
@@ -28245,7 +28245,7 @@ strong {
 }
 
 .text-size-large-2-copy {
-  letter-spacing: -.019em;
+  letter-spacing:normal;
   font-size: 1.5rem;
   line-height: 2rem;
 }
@@ -28306,7 +28306,7 @@ strong {
 }
 
 .text-size-large-2-copy-copy {
-  letter-spacing: -.019em;
+  letter-spacing:normal;
   font-size: 1.5rem;
   line-height: 2rem;
 }
@@ -28328,7 +28328,7 @@ strong {
 
 .heading-size-3-5-2-copy {
   color: #ffffff80;
-  letter-spacing: -.0075em;
+  letter-spacing:normal;
   width: 50%;
   font-family: Polysans Neutral, Arial, sans-serif;
   font-size: 30px;
@@ -44560,7 +44560,7 @@ strong {
   }
 
   .heading-size-6 {
-    letter-spacing: -.0075em;
+    letter-spacing:normal;
     font-size: 4rem;
     line-height: 4.5rem;
   }
@@ -46817,7 +46817,7 @@ strong {
   }
 
   .cta_looping-text_wrap {
-    letter-spacing: -.025em;
+    letter-spacing:normal;
     font-size: 3rem;
     line-height: 3.5rem;
   }
