@@ -135,7 +135,7 @@ h6,.heading-11,.archive-p,.archive-info-h6{line-height:140%!important;}
 .he-comp.he-armed .he-screen:not(.he-in){opacity:0;transform:translateY(28px)}
 /* the screen uses the site's standard image reveal (fade + rise 28px, 0.8s, ease-out, no delay); the findings follow */
 .he-screen.he-in{animation:he-reveal .8s cubic-bezier(.5,1,.89,1) both;animation-delay:var(--d,0s)}
-.he-card.he-in{animation:he-in .6s cubic-bezier(.5,1,.89,1) both;animation-delay:var(--d,0s)}
+.he-card.he-in{animation:he-in .45s cubic-bezier(.5,1,.89,1) both;animation-delay:var(--d,0s)}
 .he-layer.he-done{animation:none;opacity:1;transform:none}
 @keyframes he-reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes he-in{from{opacity:0;transform:translateY(18px) scale(.965)}to{opacity:1;transform:none}}
@@ -413,14 +413,14 @@ var options = {
   setTimeout(forceAuto, 1500);
 })();
 </script><script src="header-scroll.js"></script><script id="he-anim-js">
-/* Builds the Phase 1 composition once: screen first, then findings 1, 2, 3, 4 (3.0s in total).
+/* Builds the Phase 1 composition once: screen first, then findings 1, 2, 3, 4 (under 2.0s in total).
    Plays when the screen scrolls into view and never again until the page is reloaded. */
 (function () {
   var comp = document.querySelector('.he-comp');
   if (!comp || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var layers = [].slice.call(comp.querySelectorAll('.he-layer'));
-  var delays = [0, 0.8, 1.33, 1.86, 2.39];         /* seconds from the screen's start: screen (0.8s), then 01, 02, 03, 04 (0.6s each); all done by 2.99s */
+  var delays = [0, 0.75, 1.0, 1.25, 1.5];          /* seconds from the screen's start: screen (0.8s), then 01, 02, 03, 04 (0.45s each, one every 0.25s); all done by 1.95s */
   var stacked = window.matchMedia && matchMedia('(max-width: 767px)').matches;
   comp.classList.add('he-armed');
   function ready(l) {                                /* wait for the image so it never pops in half-loaded */
