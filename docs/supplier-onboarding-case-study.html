@@ -132,9 +132,12 @@ h6,.heading-11,.archive-p,.archive-info-h6{line-height:140%!important;}
 .he-card-4{left:79.726%;top:0%}
 /* hidden only once the script has armed it; without the script everything simply shows */
 .he-comp.he-armed .he-layer:not(.he-in){opacity:0;transform:translateY(18px) scale(.965)}
-.he-comp.he-armed .he-screen:not(.he-in){transform:scale(.985)}
-.he-layer.he-in{animation:he-in .7s cubic-bezier(.22,.8,.3,1) both;animation-delay:var(--d,0s)}
+.he-comp.he-armed .he-screen:not(.he-in){opacity:0;transform:translateY(28px)}
+/* the screen uses the site's standard image reveal (fade + rise 28px, 0.8s, ease-out, no delay); the findings follow */
+.he-screen.he-in{animation:he-reveal .8s cubic-bezier(.5,1,.89,1) both;animation-delay:var(--d,0s)}
+.he-card.he-in{animation:he-in .6s cubic-bezier(.5,1,.89,1) both;animation-delay:var(--d,0s)}
 .he-layer.he-done{animation:none;opacity:1;transform:none}
+@keyframes he-reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes he-in{from{opacity:0;transform:translateY(18px) scale(.965)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.he-comp.he-armed .he-layer:not(.he-in){opacity:1;transform:none}.he-layer.he-in{animation:none}}
 /* phones: the findings would be unreadably small, so stack them under the screen at a readable size */
@@ -410,44 +413,52 @@ var options = {
   setTimeout(forceAuto, 1500);
 })();
 </script><script src="header-scroll.js"></script><script id="he-anim-js">
-/* Builds the Phase 1 composition once: screen first, then findings 1, 2, 3, 4.
-   Plays when the block scrolls into view and never again until the page is reloaded. */
+/* Builds the Phase 1 composition once: screen first, then findings 1, 2, 3, 4 (3.0s in total).
+   Plays when the screen scrolls into view and never again until the page is reloaded. */
 (function () {
   var comp = document.querySelector('.he-comp');
   if (!comp || !('IntersectionObserver' in window)) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var layers = [].slice.call(comp.querySelectorAll('.he-layer'));
-  var delays = [0, 0.75, 1.4, 2.05, 2.7];          /* seconds: screen, then 01, 02, 03, 04 */
+  var delays = [0, 0.8, 1.33, 1.86, 2.39];         /* seconds from the screen's start: screen (0.8s), then 01, 02, 03, 04 (0.6s each); all done by 2.99s */
   var stacked = window.matchMedia && matchMedia('(max-width: 767px)').matches;
   comp.classList.add('he-armed');
   function ready(l) {                                /* wait for the image so it never pops in half-loaded */
     return Promise.race([l.decode ? l.decode().catch(function () {}) : Promise.resolve(),
                          new Promise(function (r) { setTimeout(r, 1500); })]);
   }
-  function play(l, d) {
+  function begin(l, d, from) {                       /* start one layer 'd' seconds after the screen started */
     ready(l).then(function () {
-      l.style.setProperty('--d', d + 's'); l.classList.add('he-in');
+      var late = from ? (performance.now() - from) / 1000 : 0;   /* slow image: start it sooner so the total stays under 3s */
+      l.style.setProperty('--d', Math.max(0, d - late) + 's'); l.classList.add('he-in');
       l.addEventListener('animationend', function () { l.classList.add('he-done'); }, { once: true });   /* then plain static CSS */
     });
   }
+  function build() {                                 /* screen first; the findings count their delay from the screen's real start */
+    ready(layers[0]).then(function () {
+      var t0 = performance.now();
+      layers[0].classList.add('he-in');
+      layers[0].addEventListener('animationend', function () { layers[0].classList.add('he-done'); }, { once: true });
+      layers.slice(1).forEach(function (l, i) { begin(l, delays[i + 1], t0); });
+    });
+  }
+  /* same trigger as the site's other images: it starts when the screen's top reaches 85% of the window height */
   if (!stacked) {
     var started = false;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (started || !e.isIntersecting) return;
-        if (e.intersectionRatio >= 0.4 || e.boundingClientRect.top < window.innerHeight * 0.45) {
-          started = true; io.disconnect();
-          layers.forEach(function (l, i) { play(l, delays[i]); });
-        }
+        started = true; io.disconnect();
+        build();
       });
-    }, { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6] });
-    io.observe(comp);
+    }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
+    io.observe(layers[0]);
   } else {                                           /* phones: each piece builds as it comes into view, in order */
     var seen = [], next = 0;
     var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) seen[layers.indexOf(e.target)] = true; });
-      while (next < layers.length && seen[next]) { play(layers[next], 0); io2.unobserve(layers[next]); next++; }
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+      while (next < layers.length && seen[next]) { begin(layers[next], 0, 0); io2.unobserve(layers[next]); next++; }
+    }, { rootMargin: '0px 0px -15% 0px', threshold: 0 });
     layers.forEach(function (l) { io2.observe(l); });
   }
 })();
