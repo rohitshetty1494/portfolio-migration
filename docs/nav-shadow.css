@@ -3,7 +3,7 @@
 
    The glow uses the dark pages' own background colour (#12141d), not black. On the page
    itself it is therefore invisible; over a white image it shows as a soft dark-navy cloud.
-   Each glow is local to its own item; they never merge into a band. */
+   Each glow is local to its own item. Opacity is deliberately low (26%) and the glow wide and soft. */
 :root {
   --nav-glow-rgb: 18, 20, 29; /* = background colour of the dark pages, rgb(18, 20, 29) */
 }
@@ -23,15 +23,16 @@ a.nav_link {
 a.nav_link::before {
   content: "";
   position: absolute;
-  inset: 0 -2px;
+  inset: -2px -12px;
   z-index: -1;
-  background: rgba(var(--nav-glow-rgb), 0.35);
+  background: rgba(var(--nav-glow-rgb), 0.26);
   border-radius: 999px;
-  filter: blur(12px);
+  filter: blur(22px);
   pointer-events: none;
 }
 
 /* Get Resume button (header): backing inside the pill */
 .header-main .btn---wrap {
-  background-color: rgba(var(--nav-glow-rgb), 0.35);
+  background-color: rgba(var(--nav-glow-rgb), 0.26);
+  box-shadow: 0 0 26px 5px rgba(var(--nav-glow-rgb), 0.26);
 }
