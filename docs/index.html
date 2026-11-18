@@ -393,11 +393,15 @@ new CircleType(document.getElementById('circletext3'));
 </script><script src="header-scroll.js"></script><script>
 (function(){
   function reveal(){ document.documentElement.classList.add('fonts-ready'); }
+  function afterFirstPaint(){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(reveal);
+    });
+  }
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(reveal);
-    setTimeout(reveal, 2000);
+    document.fonts.ready.then(afterFirstPaint);
   } else {
-    reveal();
+    afterFirstPaint();
   }
 })();
 </script></body></html>
