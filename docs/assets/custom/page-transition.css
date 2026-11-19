@@ -1,0 +1,123 @@
+/* Dapper-style page transition overlay + flower mark */
+
+#page-transition-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Default state baked into the markup: covers instantly, no transition, so there is
+   never a flash of the raw page before JS has a chance to run. */
+#page-transition-overlay.pt-cover-instant {
+  top: 0;
+  bottom: auto;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* Navigating AWAY from a page: panel rises up from the bottom edge, rounded leading
+   (top) corners, until it fills the screen. */
+#page-transition-overlay.pt-entering {
+  top: auto;
+  bottom: 0;
+  height: 100%;
+  border-radius: 48px 48px 0 0;
+  transition: height 0.55s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+#page-transition-overlay.pt-entering.pt-start {
+  height: 0%;
+  border-radius: 0;
+}
+
+/* Arriving on a page: panel stays pinned to the top and shrinks away upward,
+   rounded trailing (bottom) corners, revealing the page underneath. */
+#page-transition-overlay.pt-exiting {
+  top: 0;
+  bottom: auto;
+  height: 0%;
+  border-radius: 0 0 48px 48px;
+  transition: height 0.4s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+#page-transition-overlay.pt-exiting.pt-start {
+  height: 100%;
+  border-radius: 0;
+}
+
+#page-transition-overlay.pt-done {
+  display: none;
+}
+
+.pt-flower {
+  width: 64px;
+  height: 78px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+#page-transition-overlay.pt-entering .pt-flower,
+#page-transition-overlay.pt-cover-instant .pt-flower,
+#page-transition-overlay.pt-exiting.pt-start .pt-flower {
+  opacity: 1;
+}
+#page-transition-overlay.pt-exiting:not(.pt-start) .pt-flower {
+  opacity: 0;
+}
+
+.pt-flower svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.pt-flower path {
+  fill: #f6f2e9;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: pt-petal-spin 2.4s ease-in-out infinite;
+}
+.pt-flower path:nth-child(1) { animation-delay: 0s; }
+.pt-flower path:nth-child(2) { animation-delay: 0.18s; animation-direction: alternate-reverse; }
+.pt-flower path:nth-child(3) { animation-delay: 0.36s; }
+.pt-flower path:nth-child(4) { animation-delay: 0.54s; animation-direction: alternate-reverse; }
+
+@keyframes pt-petal-spin {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(13deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-flower path { animation: none; }
+  #page-transition-overlay.pt-entering,
+  #page-transition-overlay.pt-exiting {
+    transition-duration: 0.01s;
+  }
+}
+
+/* Nav logo hover "bloom".
+   Two markup shapes exist across pages:
+   - paths with no XML transform attribute of their own (direct path targeting is safe)
+   - paths that carry their own XML transform="translate(...)" for positioning, wrapped
+     in an extra <g class="nav-logo-petal"> so our CSS transform (which would otherwise
+     override/replace that XML attribute) animates the wrapper instead. */
+.nav-logo-flower-a .nav-logo-flower > path,
+.nav-logo-flower-a .nav-logo-petal {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(1),
+.nav-logo-flower-a:hover .nav-logo-petal:nth-child(1) { transform: rotate(-14deg) scale(1.06); }
+.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(2),
+.nav-logo-flower-a:hover .nav-logo-petal:nth-child(2) { transform: rotate(14deg) scale(1.06); }
+.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(3),
+.nav-logo-flower-a:hover .nav-logo-petal:nth-child(3) { transform: rotate(14deg) scale(1.06); }
+.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(4),
+.nav-logo-flower-a:hover .nav-logo-petal:nth-child(4) { transform: rotate(-14deg) scale(1.06); }
