@@ -1,15 +1,20 @@
 (function () {
   var ENTER_MS = 550;
-  var HOLD_MS = 1300;
-  var SKETCH_DRAW_MS = 900;
-  var SKETCH_STAGGER_MS = 150;
+  var HOLD_MS = 1500;
+  var SKETCH_DRAW_MS = 700;
+  // Petal markup order is [top-right, bottom-right, top-left, bottom-left].
+  // Matched against the reference GIF frame by frame: top-right and
+  // bottom-left wipe in together first, top-left starts partway through,
+  // bottom-right starts last.
+  var SKETCH_DELAYS = [0, 750, 450, 0];
 
-  // Shared "pen sketch" player: each <path class="pt-reveal"> sits inside an SVG
-  // <mask> and is stroked thick/solid; the matching <path class="pt-sketch"> it
-  // masks is the actual visible dotted outline (styled once in CSS, never touched
-  // here). Animating the reveal path's stroke-dashoffset from its own length to 0
-  // grows the mask along the path, so dots appear progressively from start to end
-  // while staying dotted throughout - no separate "solid then dotted" phase.
+  // Shared "wipe in" player: each <path class="pt-reveal"> sits inside an SVG
+  // <mask> and is stroked thick/solid, tracing that petal's own outline; the
+  // matching <path class="pt-sketch"> it masks is the actual solid white fill
+  // (styled once in CSS, never touched here). Animating the reveal path's
+  // stroke-dashoffset from its own length to 0 grows the mask along the path;
+  // because the reveal stroke is thick enough to span the petal's interior,
+  // the solid fill appears to flood in behind the traced outline.
   function createSketchPlayer(root) {
     var reveals = Array.prototype.slice.call(root.querySelectorAll('.pt-reveal'));
     var timers = [];
@@ -32,10 +37,11 @@
         path.style.strokeDasharray = length + ' ' + length;
         path.style.strokeDashoffset = String(length);
         void path.getBoundingClientRect();
+        var delay = SKETCH_DELAYS[i] || 0;
         var id = window.setTimeout(function () {
           path.style.transition = 'stroke-dashoffset ' + SKETCH_DRAW_MS + 'ms cubic-bezier(0.45,0,0.2,1)';
           path.style.strokeDashoffset = '0';
-        }, i * SKETCH_STAGGER_MS);
+        }, delay);
         timers.push(id);
       });
     }

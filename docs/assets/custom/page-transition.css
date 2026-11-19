@@ -57,7 +57,6 @@
 .pt-flower {
   width: 92px;
   height: 112px;
-  color: #f6f2e9;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -78,26 +77,23 @@
   overflow: visible;
 }
 
-/* The hand-drawn sketch mark: a hidden, thick "reveal" stroke lives inside an SVG
-   <mask> and is drawn on via stroke-dasharray/stroke-dashoffset (JS, using the
-   path's real getTotalLength()); the matching "sketch" path it masks is the actual
-   visible fine dotted outline, dotted from the very first frame, so dots appear
-   progressively along the path instead of a solid line that later turns dotted. */
+/* The reference mark: each petal is a SOLID white fill that wipes in, one at a
+   time (not a dotted outline draw-on). A hidden, thick "reveal" stroke lives
+   inside an SVG <mask>, traces that petal's own outline, and is drawn on via
+   stroke-dasharray/stroke-dashoffset (JS, using the path's real
+   getTotalLength()); the stroke is thick enough that once it has traced the
+   whole outline, the mask fully covers the petal's interior too, so the solid
+   fill appears to flood in along the same path the outline was traced. */
 .pt-reveal {
   fill: none;
   stroke: #fff;
-  stroke-width: 10;
+  stroke-width: 70;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .pt-sketch {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 2.4 5;
-  vector-effect: non-scaling-stroke;
+  fill: #fff;
+  stroke: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -109,15 +105,36 @@
   }
 }
 
-/* Nav logo hover: plays the identical sketch animation as the transition overlay.
-   The solid logo fades out and the dotted sketch mark fades in and draws itself. */
+/* Nav logo hover: plays the identical animation as the transition overlay. A
+   dark backdrop fades in behind the mark (the reveal is white, same as the
+   source animation, so it needs a dark surface to read against the light
+   nav bar), the solid black logo fades out, and the white mark wipes in. */
 .nav-logo-flower-a {
   position: relative;
+}
+.nav-logo-icon-box {
+  position: absolute;
+  top: 0;
+}
+.nav-logo-sketch-bg {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
 .nav-logo-sketch {
   position: absolute;
   top: 0;
-  color: #000;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -125,6 +142,10 @@
 .nav-logo-flower-a.is-sketching .nav-logo-solid {
   opacity: 0;
   transition: opacity 0.3s ease;
+}
+.nav-logo-flower-a.is-sketching .nav-logo-sketch-bg {
+  opacity: 1;
+  transform: scale(1);
 }
 .nav-logo-flower-a.is-sketching .nav-logo-sketch {
   opacity: 1;
