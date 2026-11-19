@@ -1,0 +1,121 @@
+/* Dapper-style page transition overlay + flower mark */
+
+#page-transition-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Default state baked into the markup: covers instantly, no transition, so there is
+   never a flash of the raw page before JS has a chance to run. */
+#page-transition-overlay.pt-cover-instant {
+  top: 0;
+  bottom: auto;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* Navigating AWAY from a page: panel rises up from the bottom edge, rounded leading
+   (top) corners, until it fills the screen. */
+#page-transition-overlay.pt-entering {
+  top: auto;
+  bottom: 0;
+  height: 100%;
+  border-radius: 48px 48px 0 0;
+  transition: height 0.55s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+#page-transition-overlay.pt-entering.pt-start {
+  height: 0%;
+  border-radius: 0;
+}
+
+/* Arriving on a page: panel stays pinned to the top and shrinks away upward,
+   rounded trailing (bottom) corners, revealing the page underneath. */
+#page-transition-overlay.pt-exiting {
+  top: 0;
+  bottom: auto;
+  height: 0%;
+  border-radius: 0 0 48px 48px;
+  transition: height 0.4s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+#page-transition-overlay.pt-exiting.pt-start {
+  height: 100%;
+  border-radius: 0;
+}
+
+#page-transition-overlay.pt-done {
+  display: none;
+}
+
+/* The reference mark is used as-is: the actual source GIF (transparent
+   background, white wipe-in animation), not a hand-recreated version, so
+   there is no risk of the timing/easing/shape drifting from the reference. */
+.pt-flower {
+  width: 92px;
+  height: 112px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+#page-transition-overlay.pt-entering .pt-flower,
+#page-transition-overlay.pt-cover-instant .pt-flower,
+#page-transition-overlay.pt-exiting.pt-start .pt-flower {
+  opacity: 1;
+}
+#page-transition-overlay.pt-exiting:not(.pt-start) .pt-flower {
+  opacity: 0;
+}
+
+.pt-flower-gif,
+.nav-logo-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-flower-gif,
+  .nav-logo-gif {
+    animation-play-state: paused;
+  }
+}
+
+/* Nav logo hover: the same GIF, inverted to black (filter: invert(1) flips
+   its white pixels to black while leaving the transparent background alone)
+   to match the logo's own resting color. Only the icon fades for the swap -
+   .nav-logo-solid is scoped to just the icon group/svg, never the wordmark
+   text, so "Rohit Shetty" stays put the whole time. */
+.nav-logo-flower-a {
+  position: relative;
+}
+.nav-logo-icon-box {
+  position: absolute;
+  top: 0;
+}
+.nav-logo-sketch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-logo-gif {
+  filter: invert(1);
+}
+.nav-logo-flower-a.is-sketching .nav-logo-solid {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.nav-logo-flower-a.is-sketching .nav-logo-sketch {
+  opacity: 1;
+}
