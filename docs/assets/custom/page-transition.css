@@ -55,8 +55,8 @@
 }
 
 .pt-flower {
-  width: 64px;
-  height: 78px;
+  width: 92px;
+  height: 112px;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -76,25 +76,24 @@
   overflow: visible;
 }
 
+/* Hand-drawn sketch outline: each path is stroked (not filled) and traced in by
+   JS via stroke-dasharray/stroke-dashoffset (uses the path's real getTotalLength()),
+   then settles into a fine dotted stroke to match the sketchy, hand-drawn look. */
 .pt-flower path {
-  fill: #f6f2e9;
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  animation: pt-petal-spin 2.4s ease-in-out infinite;
-}
-.pt-flower path:nth-child(1) { animation-delay: 0s; }
-.pt-flower path:nth-child(2) { animation-delay: 0.18s; animation-direction: alternate-reverse; }
-.pt-flower path:nth-child(3) { animation-delay: 0.36s; }
-.pt-flower path:nth-child(4) { animation-delay: 0.54s; animation-direction: alternate-reverse; }
-
-@keyframes pt-petal-spin {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(13deg); }
-  100% { transform: rotate(0deg); }
+  fill: none;
+  stroke: #f6f2e9;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pt-flower path { animation: none; }
+  .pt-flower path {
+    stroke-dasharray: 2.4 5 !important;
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
   #page-transition-overlay.pt-entering,
   #page-transition-overlay.pt-exiting {
     transition-duration: 0.01s;
