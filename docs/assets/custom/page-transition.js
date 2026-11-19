@@ -1,20 +1,87 @@
 (function () {
+  var ENTER_MS = 550;
+  var HOLD_MS = 1300;
+  var SKETCH_DRAW_MS = 900;
+  var SKETCH_STAGGER_MS = 150;
+
+  // Shared "pen sketch" player: each <path class="pt-reveal"> sits inside an SVG
+  // <mask> and is stroked thick/solid; the matching <path class="pt-sketch"> it
+  // masks is the actual visible dotted outline (styled once in CSS, never touched
+  // here). Animating the reveal path's stroke-dashoffset from its own length to 0
+  // grows the mask along the path, so dots appear progressively from start to end
+  // while staying dotted throughout - no separate "solid then dotted" phase.
+  function createSketchPlayer(root) {
+    var reveals = Array.prototype.slice.call(root.querySelectorAll('.pt-reveal'));
+    var timers = [];
+
+    function clearTimers() {
+      timers.forEach(window.clearTimeout);
+      timers.length = 0;
+    }
+
+    function play() {
+      clearTimers();
+      reveals.forEach(function (path, i) {
+        var length;
+        try {
+          length = path.getTotalLength();
+        } catch (e) {
+          return;
+        }
+        path.style.transition = 'none';
+        path.style.strokeDasharray = length + ' ' + length;
+        path.style.strokeDashoffset = String(length);
+        void path.getBoundingClientRect();
+        var id = window.setTimeout(function () {
+          path.style.transition = 'stroke-dashoffset ' + SKETCH_DRAW_MS + 'ms cubic-bezier(0.45,0,0.2,1)';
+          path.style.strokeDashoffset = '0';
+        }, i * SKETCH_STAGGER_MS);
+        timers.push(id);
+      });
+    }
+
+    function reset() {
+      clearTimers();
+      reveals.forEach(function (path) {
+        path.style.transition = 'none';
+        path.style.strokeDasharray = '';
+        path.style.strokeDashoffset = '';
+      });
+    }
+
+    return { play: play, reset: reset };
+  }
+
+  // ---- Nav logo hover: plays the identical sketch animation on hover ----
+  Array.prototype.forEach.call(document.querySelectorAll('.nav-logo-flower-a'), function (a) {
+    var sketchRoot = a.querySelector('.nav-logo-sketch');
+    if (!sketchRoot) return;
+    var player = createSketchPlayer(sketchRoot);
+    a.addEventListener('mouseenter', function () {
+      a.classList.add('is-sketching');
+      player.play();
+    });
+    a.addEventListener('mouseleave', function () {
+      a.classList.remove('is-sketching');
+      player.reset();
+    });
+    a.addEventListener('focus', function () {
+      a.classList.add('is-sketching');
+      player.play();
+    });
+    a.addEventListener('blur', function () {
+      a.classList.remove('is-sketching');
+      player.reset();
+    });
+  });
+
+  // ---- Page transition overlay ----
   var overlay = document.getElementById('page-transition-overlay');
   if (!overlay) return;
 
-  var ENTER_MS = 550;
-  var HOLD_MS = 1300;
-  var SKETCH_DRAW_MS = 650;
-  var SKETCH_STAGGER_MS = 120;
-  var SKETCH_DASH = '2.4 5';
+  var overlaySketch = createSketchPlayer(overlay);
   var transitioning = false;
 
-  var sketchPaths = Array.prototype.slice.call(overlay.querySelectorAll('.pt-flower path'));
-
-  // Every pending timer from the current cover/reveal (or entering) sequence lives
-  // here, so a mid-sequence navigation click can cancel it cleanly instead of racing
-  // with it (e.g. a click right before the page's own initial reveal() would
-  // otherwise fire both pt-entering and pt-exiting at once).
   var pendingTimers = [];
   function setTimer(fn, ms) {
     var id = window.setTimeout(fn, ms);
@@ -26,56 +93,22 @@
     pendingTimers.length = 0;
   }
 
-  function playSketch() {
-    sketchPaths.forEach(function (path, i) {
-      var length;
-      try {
-        length = path.getTotalLength();
-      } catch (e) {
-        return;
-      }
-      path.style.transition = 'none';
-      path.style.strokeDasharray = length + ' ' + length;
-      path.style.strokeDashoffset = String(length);
-      void path.getBoundingClientRect();
-      setTimer(function () {
-        path.style.transition = 'stroke-dashoffset ' + SKETCH_DRAW_MS + 'ms cubic-bezier(0.65,0,0.35,1)';
-        path.style.strokeDashoffset = '0';
-      }, i * SKETCH_STAGGER_MS);
-      setTimer(function () {
-        path.style.transition = 'none';
-        path.style.strokeDasharray = SKETCH_DASH;
-        path.style.strokeDashoffset = '0';
-      }, i * SKETCH_STAGGER_MS + SKETCH_DRAW_MS);
-    });
-  }
-
-  function resetSketch() {
-    sketchPaths.forEach(function (path) {
-      path.style.transition = 'none';
-      path.style.strokeDasharray = '';
-      path.style.strokeDashoffset = '';
-    });
-  }
-
   function reveal() {
     overlay.classList.remove('pt-cover-instant');
     overlay.classList.add('pt-exiting', 'pt-start');
-    // force reflow so the browser registers the start state before we animate away from it
     void overlay.offsetHeight;
     requestAnimationFrame(function () {
       overlay.classList.remove('pt-start');
     });
     setTimer(function () {
       overlay.classList.add('pt-done');
-      resetSketch();
+      overlaySketch.reset();
     }, 420);
   }
 
-  // Let the sketch draw itself in, then clear the overlay. The initial
-  // pt-cover-instant state is already covering (baked into the markup), so
-  // there is no flash of the raw page while this plays out.
-  playSketch();
+  // The initial pt-cover-instant state is already covering (baked into the
+  // markup), so there is no flash of the raw page while the sketch draws in.
+  overlaySketch.play();
   setTimer(reveal, HOLD_MS);
 
   function isInternalTransitionLink(link) {
@@ -110,7 +143,7 @@
     var dest = link.href;
 
     clearPendingTimers();
-    resetSketch();
+    overlaySketch.reset();
     overlay.classList.remove('pt-done', 'pt-exiting', 'pt-cover-instant');
     overlay.classList.add('pt-entering', 'pt-start');
     void overlay.offsetHeight;
@@ -118,7 +151,7 @@
       overlay.classList.remove('pt-start');
     });
 
-    setTimer(playSketch, ENTER_MS);
+    setTimer(overlaySketch.play, ENTER_MS);
 
     setTimer(function () {
       window.location.href = dest;

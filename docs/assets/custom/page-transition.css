@@ -57,6 +57,7 @@
 .pt-flower {
   width: 92px;
   height: 112px;
+  color: #f6f2e9;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -69,54 +70,62 @@
   opacity: 0;
 }
 
-.pt-flower svg {
+.pt-flower svg,
+.nav-logo-sketch svg {
   width: 100%;
   height: 100%;
   display: block;
   overflow: visible;
 }
 
-/* Hand-drawn sketch outline: each path is stroked (not filled) and traced in by
-   JS via stroke-dasharray/stroke-dashoffset (uses the path's real getTotalLength()),
-   then settles into a fine dotted stroke to match the sketchy, hand-drawn look. */
-.pt-flower path {
+/* The hand-drawn sketch mark: a hidden, thick "reveal" stroke lives inside an SVG
+   <mask> and is drawn on via stroke-dasharray/stroke-dashoffset (JS, using the
+   path's real getTotalLength()); the matching "sketch" path it masks is the actual
+   visible fine dotted outline, dotted from the very first frame, so dots appear
+   progressively along the path instead of a solid line that later turns dotted. */
+.pt-reveal {
   fill: none;
-  stroke: #f6f2e9;
+  stroke: #fff;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pt-sketch {
+  fill: none;
+  stroke: currentColor;
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 2.4 5;
   vector-effect: non-scaling-stroke;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pt-flower path {
-    stroke-dasharray: 2.4 5 !important;
-    stroke-dashoffset: 0 !important;
-    transition: none !important;
-  }
+  .pt-reveal { display: none; }
+  .pt-sketch { mask: none !important; }
   #page-transition-overlay.pt-entering,
   #page-transition-overlay.pt-exiting {
     transition-duration: 0.01s;
   }
 }
 
-/* Nav logo hover "bloom".
-   Two markup shapes exist across pages:
-   - paths with no XML transform attribute of their own (direct path targeting is safe)
-   - paths that carry their own XML transform="translate(...)" for positioning, wrapped
-     in an extra <g class="nav-logo-petal"> so our CSS transform (which would otherwise
-     override/replace that XML attribute) animates the wrapper instead. */
-.nav-logo-flower-a .nav-logo-flower > path,
-.nav-logo-flower-a .nav-logo-petal {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+/* Nav logo hover: plays the identical sketch animation as the transition overlay.
+   The solid logo fades out and the dotted sketch mark fades in and draws itself. */
+.nav-logo-flower-a {
+  position: relative;
 }
-.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(1),
-.nav-logo-flower-a:hover .nav-logo-petal:nth-child(1) { transform: rotate(-14deg) scale(1.06); }
-.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(2),
-.nav-logo-flower-a:hover .nav-logo-petal:nth-child(2) { transform: rotate(14deg) scale(1.06); }
-.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(3),
-.nav-logo-flower-a:hover .nav-logo-petal:nth-child(3) { transform: rotate(14deg) scale(1.06); }
-.nav-logo-flower-a:hover .nav-logo-flower > path:nth-child(4),
-.nav-logo-flower-a:hover .nav-logo-petal:nth-child(4) { transform: rotate(-14deg) scale(1.06); }
+.nav-logo-sketch {
+  position: absolute;
+  top: 0;
+  color: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-logo-flower-a.is-sketching .nav-logo-solid {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.nav-logo-flower-a.is-sketching .nav-logo-sketch {
+  opacity: 1;
+}
