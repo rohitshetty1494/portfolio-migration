@@ -1,4 +1,29 @@
 (function () {
+  // window.__ptRevealed / window.__ptRevealedQueue / window.onPageTransitionRevealed
+  // are set up by a tiny synchronous inline script right after <body> - before
+  // this file (loaded with defer) runs, and before any other inline script
+  // later in the page, so every script can safely call
+  // onPageTransitionRevealed(fn) regardless of load order. This file just
+  // flushes that queue once the curtain has actually cleared. Defensive
+  // fallback here only in case that stub is somehow missing.
+  if (typeof window.onPageTransitionRevealed !== 'function') {
+    window.__ptRevealed = false;
+    window.__ptRevealedQueue = [];
+    window.onPageTransitionRevealed = function (fn) {
+      if (window.__ptRevealed) fn();
+      else window.__ptRevealedQueue.push(fn);
+    };
+  }
+  function markRevealed() {
+    window.__ptRevealed = true;
+    var queue = window.__ptRevealedQueue || [];
+    window.__ptRevealedQueue = [];
+    queue.forEach(function (fn) {
+      fn();
+    });
+    document.dispatchEvent(new CustomEvent('ptrevealed'));
+  }
+
   var ENTER_MS = 550;
   // Pause after the curtain fully covers the screen, before actually leaving
   // the current page - this page is already loaded, so there's nothing to
@@ -44,7 +69,10 @@
 
   // ---- Page transition overlay ----
   var overlay = document.getElementById('page-transition-overlay');
-  if (!overlay) return;
+  if (!overlay) {
+    markRevealed();
+    return;
+  }
 
   var overlayGif = overlay.querySelector('.pt-flower-gif');
   var transitioning = false;
@@ -69,6 +97,7 @@
     });
     setTimer(function () {
       overlay.classList.add('pt-done');
+      markRevealed();
     }, 420);
   }
 
