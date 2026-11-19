@@ -112,6 +112,11 @@
 .nav-logo-gif {
   filter: invert(1);
 }
+/* Dark-themed nav bars (dark bg, cream/white logo already) use the GIF's own
+   native white color - no invert needed, it already reads correctly. */
+.nav-logo-flower-a--dark .nav-logo-gif {
+  filter: none;
+}
 .nav-logo-flower-a.is-sketching .nav-logo-solid {
   opacity: 0;
   transition: opacity 0.3s ease;
