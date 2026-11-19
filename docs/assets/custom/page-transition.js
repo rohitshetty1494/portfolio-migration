@@ -1,9 +1,16 @@
 (function () {
   var ENTER_MS = 550;
-  // The source GIF is a 1.83s loop (fully wiped in well before that). Hold
-  // slightly less than one full loop so the overlay/hover never catches it
-  // resetting back to blank mid-display.
-  var HOLD_MS = 1550;
+  // Pause after the curtain fully covers the screen, before actually leaving
+  // the current page - this page is already loaded, so there's nothing to
+  // wait on here; it's just a short beat so the cover doesn't feel abrupt.
+  var LEAVE_HOLD_MS = 300;
+  // On arrival, the curtain is a real loading screen, not a fixed-length
+  // decoration: it waits for the new page's eager resources (window 'load' -
+  // scripts, stylesheets, non-lazy images) to finish, bounded by a minimum
+  // (so the mark always gets to wipe in, even on an instant cache hit) and a
+  // maximum (so one slow or broken asset can't hold the page hostage).
+  var MIN_HOLD_MS = 700;
+  var MAX_HOLD_MS = 4000;
   var GIF_SRC = 'assets/custom/logo-wipe.gif';
 
   // GIFs don't expose a JS "restart playback" API - the standard trick is to
@@ -66,9 +73,23 @@
   }
 
   // The initial pt-cover-instant state is already covering (baked into the
-  // markup), so there is no flash of the raw page while the gif plays.
+  // markup), so there is no flash of the raw page while the gif plays and
+  // the page loads behind it.
   restartGif(overlayGif);
-  setTimer(reveal, HOLD_MS);
+
+  var pageLoaded = document.readyState === 'complete'
+    ? Promise.resolve()
+    : new Promise(function (resolve) {
+        window.addEventListener('load', resolve, { once: true });
+      });
+  var minHold = new Promise(function (resolve) {
+    setTimer(resolve, MIN_HOLD_MS);
+  });
+  var maxHold = new Promise(function (resolve) {
+    setTimer(resolve, MAX_HOLD_MS);
+  });
+
+  Promise.race([Promise.all([pageLoaded, minHold]), maxHold]).then(reveal);
 
   function isInternalTransitionLink(link) {
     if (!link || !link.href) return false;
@@ -115,6 +136,6 @@
 
     setTimer(function () {
       window.location.href = dest;
-    }, ENTER_MS + HOLD_MS);
+    }, ENTER_MS + LEAVE_HOLD_MS);
   });
 })();
