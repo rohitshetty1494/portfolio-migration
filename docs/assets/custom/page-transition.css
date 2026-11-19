@@ -54,10 +54,12 @@
   display: none;
 }
 
+/* The reference mark is used as-is: the actual source GIF (transparent
+   background, white wipe-in animation), not a hand-recreated version, so
+   there is no risk of the timing/easing/shape drifting from the reference. */
 .pt-flower {
   width: 92px;
   height: 112px;
-  color: #fff;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -70,47 +72,26 @@
   opacity: 0;
 }
 
-.pt-flower svg,
-.nav-logo-sketch svg {
+.pt-flower-gif,
+.nav-logo-gif {
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
-  overflow: visible;
-}
-
-/* The reference mark: each petal is a SOLID white fill that wipes in, one at a
-   time (not a dotted outline draw-on). A hidden, thick "reveal" stroke lives
-   inside an SVG <mask>, traces that petal's own outline, and is drawn on via
-   stroke-dasharray/stroke-dashoffset (JS, using the path's real
-   getTotalLength()); the stroke is thick enough that once it has traced the
-   whole outline, the mask fully covers the petal's interior too, so the solid
-   fill appears to flood in along the same path the outline was traced. */
-.pt-reveal {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 70;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.pt-sketch {
-  fill: currentColor;
-  stroke: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pt-reveal { display: none; }
-  .pt-sketch { mask: none !important; }
-  #page-transition-overlay.pt-entering,
-  #page-transition-overlay.pt-exiting {
-    transition-duration: 0.01s;
+  .pt-flower-gif,
+  .nav-logo-gif {
+    animation-play-state: paused;
   }
 }
 
-/* Nav logo hover: plays the identical wipe-in animation as the transition
-   overlay, just in black to match the logo's own resting color (no backdrop
-   needed). Only the icon fades for the swap - .nav-logo-solid is scoped to
-   just the icon group/svg, never the wordmark text, so "Rohit Shetty" stays
-   put the whole time. */
+/* Nav logo hover: the same GIF, inverted to black (filter: invert(1) flips
+   its white pixels to black while leaving the transparent background alone)
+   to match the logo's own resting color. Only the icon fades for the swap -
+   .nav-logo-solid is scoped to just the icon group/svg, never the wordmark
+   text, so "Rohit Shetty" stays put the whole time. */
 .nav-logo-flower-a {
   position: relative;
 }
@@ -124,10 +105,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  color: #000;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+}
+.nav-logo-gif {
+  filter: invert(1);
 }
 .nav-logo-flower-a.is-sketching .nav-logo-solid {
   opacity: 0;
