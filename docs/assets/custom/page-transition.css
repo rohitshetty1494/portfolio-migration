@@ -13,6 +13,21 @@
   box-sizing: border-box;
 }
 
+/* Same grain texture as the homepage, inverted (dark base, light flecks)
+   to read correctly on the overlay's near-black background. Scoped to a
+   pseudo-element so the invert filter can't touch the flower mark inside. */
+#page-transition-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("homepage-grain.png");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: invert(1);
+  pointer-events: none;
+}
+
 /* Default state baked into the markup: covers instantly, no transition, so there is
    never a flash of the raw page before JS has a chance to run. */
 #page-transition-overlay.pt-cover-instant {
