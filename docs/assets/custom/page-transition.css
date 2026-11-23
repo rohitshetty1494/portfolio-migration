@@ -11,6 +11,7 @@
   justify-content: center;
   pointer-events: none;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Same grain texture as the homepage, inverted (dark base, light flecks)
