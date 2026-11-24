@@ -91,17 +91,8 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
   </div>
 
   <nav class="hv-nav" aria-label="Sections">
-    <a href="#strength">Signal strength</a><a href="#matrix">Priority matrix</a><a href="#adoption">Adoption shifts</a><a href="#ai">AI penetration</a><a href="#kano">Kano model</a><a href="#regions">Regions</a><a href="#timeline">Regulation</a><a href="#verify">Verification</a><a href="#signals">All signals</a>
+    <a href="#matrix">Priority matrix</a><a href="#adoption">Adoption shifts</a><a href="#ai">AI penetration</a><a href="#kano">Kano model</a><a href="#timeline">Regulation</a><a href="#signals">All signals</a>
   </nav>
-
-  <section class="hv-sec" id="strength">
-    <h2>Strong vs weak signals by trend</h2>
-    <p>Each signal is counted under its primary trend. Trends led by weak signals are watch-list items rather than roadmap commitments.</p>
-    <div class="hv-card">
-      <ul class="hv-legend"><li><span class="hv-sw" data-c="0"></span>Strong</li><li><span class="hv-sw" data-c="1"></span>Weak</li></ul>
-      <div class="hv-chart hv-tall" data-draw="strength" data-source="strength_by_trend"></div>
-    </div>
-  </section>
 
   <section class="hv-sec" id="matrix">
     <h2>Which trends to act on</h2>
@@ -133,11 +124,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
     <h2>AI penetration by player</h2>
     <p>Which AI capabilities each player ships, based only on evidence in this research. A blank cell means not found in the research, which does not prove the player lacks it. Hitachi is not scored because the research has no evidence on its app.</p>
     <div class="hv-card">
-      <h3>AI capability heatmap</h3>
-      <ul class="hv-legend"><li><span class="hv-sw" data-c="0"></span>Ships</li><li><span class="hv-sw" data-c="0" data-o="0.38"></span>Announced, partial or rumoured</li><li><span class="hv-sw" data-c="0" data-o="0.08"></span>Not found in research</li></ul>
-      <div class="hv-chart" data-draw="ai-heat" data-source="ai_penetration"></div>
-    </div>
-    <div class="hv-card">
       <h3>Penetration index by capability</h3>
       <p class="hv-sub">Share of the maximum score across seven players (ships = 2, partial = 1).</p>
       <div class="hv-chart" data-draw="ai-index" data-source="ai_index"></div>
@@ -154,7 +140,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
       <ul class="hv-legend"><li><span class="hv-sw" data-c="0"></span>Must-be</li><li><span class="hv-sw" data-c="1"></span>Performance</li><li><span class="hv-sw" data-c="2"></span>Attractive</li><li><span class="hv-sw"></span>Indifferent</li><li><span class="hv-sw" data-c="3"></span>Reverse</li></ul>
       <div class="hv-chart hv-tall" data-draw="kano-map" data-source="kano_map"></div>
     </div>
-    <div class="hv-pair">
       <div class="hv-card">
         <h3>How to read the chart</h3>
         <ul class="hv-read">
@@ -164,14 +149,8 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
           <li><b>Indifferent, on the line:</b> users don't care either way. Don't invest.</li>
           <li><b>Reverse, below the line on the right:</b> doing more of it annoys users. Remove or restrain it.</li>
         </ul>
-        <p class="hv-sub">Categories drift: today's attractive features become must-haves as competitors copy them. The chart on the right shows the expected shift by about 2028.</p>
+        <p class="hv-sub">Categories drift: today's attractive features become must-haves as competitors copy them. The table below shows each feature's expected category by about 2028.</p>
       </div>
-      <div class="hv-card">
-        <h3>Feature mix today vs ~2028</h3>
-        <ul class="hv-legend"><li><span class="hv-sw" data-c="0" data-o="0.45"></span>Today</li><li><span class="hv-sw" data-c="0"></span>By ~2028</li></ul>
-        <div class="hv-chart" data-draw="kano-mix" data-source="kano_mix"></div>
-      </div>
-    </div>
     <div class="hv-card">
       <h3>Feature classification</h3>
       <div class="hv-table-wrap">
@@ -183,43 +162,12 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
     </div>
   </section>
 
-  <section class="hv-sec" id="regions">
-    <h2>Where the evidence comes from</h2>
-    <p>Signals per trend and region. Darker cells hold more evidence; empty cells are research gaps.</p>
-    <div class="hv-card">
-      <div class="hv-chart hv-tall" data-draw="region-heat" data-source="region_matrix"></div>
-    </div>
-  </section>
-
   <section class="hv-sec" id="timeline">
     <h2>Regulatory and policy timeline</h2>
     <p>Milestones that change what a connected HVAC app must do or can sell. Filled dots are still ahead; muted dots have passed.</p>
     <div class="hv-card">
       <h3>Milestones by region</h3>
       <div class="hv-chart hv-short" data-draw="timeline" data-source="regulations"></div>
-    </div>
-    <div class="hv-pair">
-      <div class="hv-card">
-        <h3>Cumulative milestones in force</h3>
-        <div class="hv-chart" data-draw="cumulative" data-source="reg_cumulative"></div>
-      </div>
-      <div class="hv-card">
-        <h3>Milestone list</h3>
-        <div class="hv-table-wrap">
-          <table class="hv-table" data-source="regulations" data-row-key="milestone">
-            <thead><tr><th data-field="date">Date</th><th data-field="milestone">Milestone</th><th data-field="region">Region</th><th data-field="signal">Signal</th></tr></thead>
-            <tbody data-draw="reg-table"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="hv-sec" id="verify">
-    <h2>Source verification</h2>
-    <p>Each signal's key figures were searched for on its live source page. Blocked pages sit behind bot protection or a login and need checking by hand.</p>
-    <div class="hv-card">
-      <div class="hv-chart hv-short" data-draw="verify" data-source="verify_counts"></div>
     </div>
   </section>
 
@@ -281,20 +229,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
     }),
   });
 
-  dash.calc('region_matrix', {
-    inputs: ['signals', 'trends'],
-    title: 'Signals per trend and region',
-    description: 'Count of signals by primary trend and grouped region.',
-    fn: (signals, trends) => {
-      const regions = ['North America', 'Europe', 'Japan', 'Asia (ex-Japan)', 'Oceania', 'Global / multi-region'];
-      const out = [];
-      trends.forEach((t) => regions.forEach((r) => {
-        out.push({ trend: t.id, theme: t.theme, region: r, signals: signals.filter((s) => s.trend === t.id && s.region === r).length });
-      }));
-      return out;
-    },
-  });
-
   dash.calc('adoption_change', {
     inputs: ['adoption'],
     title: 'Change in percentage points',
@@ -324,17 +258,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
     },
   });
 
-  dash.calc('kano_mix', {
-    inputs: ['kano'],
-    title: 'Features per Kano category',
-    description: 'Number of features in each Kano category today and expected by about 2028.',
-    fn: (kano) => ['Must-be', 'Performance', 'Attractive', 'Indifferent', 'Reverse'].map((c) => ({
-      category: c,
-      today: kano.filter((k) => k.today === c).length,
-      by_2028: kano.filter((k) => k.by_2028 === c).length,
-    })),
-  });
-
   dash.calc('kano_map', {
     inputs: ['kano'],
     title: 'Kano position of each feature',
@@ -354,26 +277,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
         return { no: k.no, feature: k.feature, today: k.today, by_2028: k.by_2028, market_delivery: Number(k.market_delivery), x: Math.round(x * 100) / 100, satisfaction: Math.round(f(x) * 100) / 100, basis: k.delivery_basis, signals: k.signals };
       });
     },
-  });
-
-  dash.calc('reg_cumulative', {
-    inputs: ['regulations'],
-    title: 'Cumulative milestones in force',
-    description: 'Regulatory milestones sorted by date with a running count.',
-    fn: (regulations) => {
-      const rows = regulations.slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
-      return rows.map((r, i) => ({ date: r.date, milestone: r.milestone, region: r.region, cumulative: i + 1 }));
-    },
-  });
-
-  dash.calc('verify_counts', {
-    inputs: ['signals'],
-    title: 'Signals by live-source check',
-    description: 'How many signals were confirmed on their live source page.',
-    fn: (signals) => ['Verified', 'Partly verified', 'Not found on page', 'Source not accessible', 'No source link'].map((s) => ({
-      status: s,
-      signals: signals.filter((x) => x.source_check === s).length,
-    })),
   });
 
   // ---------- helpers ----------
@@ -474,42 +377,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
   kpi('k-signals', 'signals'); kpi('k-strong', 'strong'); kpi('k-weak', 'weak'); kpi('k-verified', 'verified');
 
   // ---------- strong vs weak by trend ----------
-  dash.draw('strength', (el) => {
-    const d = HV.ok(el, ['strength_by_trend']);
-    if (!d) return;
-    const rows = d[0];
-    const C = HV.C();
-    const w = el.clientWidth || 640, narrow = w < 560;
-    const band = 28, top = 6, bottom = 26, h = top + bottom + rows.length * band;
-    const { svg, tip, box } = HV.frame(el, w, h, 'Stacked bars of strong and weak signal counts for each trend');
-    const labels = svg.append('g').selectAll('text').data(rows).join('text')
-      .attr('class', 'hv-strong').attr('x', 0).attr('y', (r, i) => top + i * band + band / 2).attr('dy', '0.35em')
-      .text((r) => (narrow ? r.trend : `${r.trend}  ${r.theme}`));
-    const maxL = Math.min(narrow ? 44 : w * 0.42, HV.maxLen(labels));
-    labels.each(function () { HV.fit(this, maxL); });
-    const left = maxL + 12, right = 12;
-    const x = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.total) || 1]).nice().range([left, w - right]);
-    svg.append('g').attr('class', 'hv-grid').selectAll('line').data(x.ticks(5)).join('line')
-      .attr('x1', x).attr('x2', x).attr('y1', top).attr('y2', h - bottom);
-    svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(0,${h - bottom})`)
-      .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('d')).tickSize(0).tickPadding(8))
-      .call((g) => g.select('.domain').remove());
-    const segs = [];
-    rows.forEach((r, i) => {
-      if (r.strong > 0) segs.push({ r, i, k: 0, a: 0, b: r.strong });
-      if (r.weak > 0) segs.push({ r, i, k: 1, a: r.strong, b: r.total });
-    });
-    const bars = svg.append('g').selectAll('rect').data(segs).join('rect')
-      .attr('x', (s) => x(s.a) + (s.a > 0 ? 2 : 0))
-      .attr('width', (s) => Math.max(1, x(s.b) - x(s.a) - (s.a > 0 ? 2 : 0)))
-      .attr('y', (s) => top + s.i * band + 6).attr('height', band - 12).attr('rx', 3)
-      .style('fill', (s) => C[s.k]);
-    svg.append('g').selectAll('text').data(segs).join('text').attr('class', 'hv-in')
-      .attr('x', (s) => (x(s.a) + x(s.b)) / 2 + (s.a > 0 ? 1 : 0)).attr('y', (s) => top + s.i * band + band / 2).attr('dy', '0.35em')
-      .attr('text-anchor', 'middle').text((s) => s.b - s.a);
-    HV.bind(bars, tip, box, (s) => [`${s.r.trend} ${s.r.theme}`, `Strong signals: ${s.r.strong}`, `Weak signals: ${s.r.weak}`]);
-  });
-
   // ---------- priority matrix ----------
   dash.draw('matrix', (el) => {
     const d = HV.ok(el, ['trends', 'strength_by_trend']);
@@ -610,48 +477,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
   });
 
   // ---------- AI heatmap ----------
-  dash.draw('ai-heat', (el) => {
-    const d = HV.ok(el, ['ai_penetration']);
-    if (!d) return;
-    const rows = d[0];
-    const C = HV.C();
-    const caps = [...new Set(rows.map((r) => r.capability))];
-    const players = [...new Set(rows.map((r) => r.player))];
-    const short = (p) => String(p).replace(/\s*\(.*\)\s*/, '').replace('Home Assistant', 'Home Asst.');
-    const w = el.clientWidth || 640, narrow = w < 600;
-    const cellH = 36;
-    const probe = HV.frame(el, w, 10, '');
-    const tmp = probe.svg.append('g').selectAll('text').data(caps).join('text').attr('class', 'hv-strong').text((c) => c);
-    const labelW = Math.min(narrow ? w * 0.36 : w * 0.3, HV.maxLen(tmp) + 4);
-    const tmp2 = probe.svg.append('g').selectAll('text').data(players).join('text').attr('class', 'hv-strong').text(short);
-    const headH = narrow ? HV.maxLen(tmp2) + 14 : 40;
-    const h = headH + caps.length * cellH + 4;
-    const { svg, tip, box } = HV.frame(el, w, h, 'Heatmap of AI capabilities shipped by seven smart-home and HVAC players');
-    const cw = (w - labelW - 6) / players.length;
-    const x0 = labelW + 6;
-    const heads = svg.append('g').selectAll('text').data(players).join('text').attr('class', 'hv-strong');
-    if (narrow) {
-      heads.attr('transform', (p, j) => `translate(${x0 + j * cw + cw / 2},${headH - 6}) rotate(-90)`).attr('dy', '0.35em').text(short);
-    } else {
-      heads.attr('x', (p, j) => x0 + j * cw + cw / 2).attr('y', headH - 12).attr('text-anchor', 'middle').text(short);
-      heads.each(function () { HV.fit(this, cw - 4); });
-    }
-    const lab = svg.append('g').selectAll('text').data(caps).join('text').attr('class', 'hv-strong')
-      .attr('x', 0).attr('y', (c, i) => headH + i * cellH + cellH / 2).attr('dy', '0.35em').text((c) => c);
-    lab.each(function () { HV.fit(this, labelW); });
-    const cells = rows.map((r) => ({ ...r, i: caps.indexOf(r.capability), j: players.indexOf(r.player), s: Number(r.score) }));
-    const op = (s) => (s === 2 ? 0.9 : s === 1 ? 0.38 : 0.08);
-    const rects = svg.append('g').selectAll('rect').data(cells).join('rect')
-      .attr('x', (c) => x0 + c.j * cw + 1).attr('y', (c) => headH + c.i * cellH + 1).attr('width', Math.max(1, cw - 2)).attr('height', cellH - 2).attr('rx', 3)
-      .style('fill', C[0]).style('fill-opacity', (c) => op(c.s));
-    svg.append('g').selectAll('text').data(cells.filter((c) => c.s > 0)).join('text')
-      .attr('class', (c) => (c.s === 2 ? 'hv-in' : 'hv-strong'))
-      .attr('x', (c) => x0 + c.j * cw + cw / 2).attr('y', (c) => headH + c.i * cellH + cellH / 2).attr('dy', '0.35em').attr('text-anchor', 'middle')
-      .style('pointer-events', 'none')
-      .text((c) => (cw < 62 ? (c.s === 2 ? '●' : '◐') : c.s === 2 ? 'Ships' : 'Partial'));
-    HV.bind(rects, tip, box, (c) => [c.player, c.capability, c.s === 2 ? 'Ships' : c.s === 1 ? 'Announced, partial or rumoured' : 'Not found in this research', c.evidence || '']);
-  });
-
   dash.draw('ai-index', (el) => {
     const d = HV.ok(el, ['ai_index']);
     if (!d) return;
@@ -737,29 +562,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
     el.textContent = kanoNames(k.data.filter((r) => r.today === 'Attractive').sort((a, b) => a.market_delivery - b.market_delivery).slice(0, 3));
   });
 
-  dash.draw('kano-mix', (el) => {
-    const d = HV.ok(el, ['kano_mix']);
-    if (!d) return;
-    const rows = d[0];
-    const C = HV.C();
-    const w = el.clientWidth || 480, h = 280, m = { t: 18, r: 8, b: 30, l: 30 };
-    const { svg, tip, box } = HV.frame(el, w, h, 'Grouped bars of feature counts per Kano category today and by about 2028');
-    const x = d3.scaleBand(rows.map((r) => r.category), [m.l, w - m.r]).padding(0.25);
-    const x2 = d3.scaleBand(['today', 'by_2028'], [0, x.bandwidth()]).padding(0.08);
-    const y = d3.scaleLinear([0, d3.max(rows, (r) => Math.max(r.today, r.by_2028)) || 1], [h - m.b, m.t]).nice();
-    svg.append('g').attr('class', 'hv-grid').selectAll('line').data(y.ticks(5)).join('line').attr('y1', y).attr('y2', y).attr('x1', m.l).attr('x2', w - m.r);
-    svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('d')).tickSize(0).tickPadding(6)).call((g) => g.select('.domain').remove());
-    const xa = svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(0,${h - m.b})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call((g) => g.select('.domain').remove());
-    xa.selectAll('text').each(function () { HV.fit(this, x.step() - 2); });
-    const segs = rows.flatMap((r) => [{ r, k: 'today', v: r.today }, { r, k: 'by_2028', v: r.by_2028 }]);
-    const bars = svg.append('g').selectAll('rect').data(segs).join('rect')
-      .attr('x', (s) => x(s.r.category) + x2(s.k)).attr('width', x2.bandwidth()).attr('y', (s) => y(s.v)).attr('height', (s) => Math.max(0, y(0) - y(s.v))).attr('rx', 3)
-      .style('fill', C[0]).style('fill-opacity', (s) => (s.k === 'today' ? 0.45 : 1));
-    svg.append('g').selectAll('text').data(segs).join('text').attr('class', 'hv-num').attr('x', (s) => x(s.r.category) + x2(s.k) + x2.bandwidth() / 2)
-      .attr('y', (s) => y(s.v) - 5).attr('text-anchor', 'middle').text((s) => s.v);
-    HV.bind(bars, tip, box, (s) => [s.r.category, `Today: ${s.r.today} features`, `By ~2028: ${s.r.by_2028} features`]);
-  });
-
   const kanoPill = (cat) => {
     const s = document.createElement('span');
     s.className = 'hv-pill';
@@ -781,42 +583,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
   });
 
   // ---------- region heatmap ----------
-  dash.draw('region-heat', (el) => {
-    const d = HV.ok(el, ['region_matrix']);
-    if (!d) return;
-    const rows = d[0];
-    const C = HV.C();
-    const trends = [...new Set(rows.map((r) => r.trend))];
-    const theme = new Map(rows.map((r) => [r.trend, r.theme]));
-    const regions = [...new Set(rows.map((r) => r.region))];
-    const short = { 'North America': 'N. America', 'Asia (ex-Japan)': 'Asia ex-JP', 'Global / multi-region': 'Global' };
-    const w = el.clientWidth || 640, narrow = w < 600;
-    const cellH = 28;
-    const probe = HV.frame(el, w, 10, '');
-    const tmp = probe.svg.append('g').selectAll('text').data(regions).join('text').attr('class', 'hv-strong').text((r) => short[r] || r);
-    const headH = narrow ? HV.maxLen(tmp) + 14 : 34;
-    const h = headH + trends.length * cellH + 4;
-    const { svg, tip, box } = HV.frame(el, w, h, 'Heatmap of signal counts per trend and region');
-    const lab = svg.append('g').selectAll('text').data(trends).join('text').attr('class', 'hv-strong').attr('x', 0)
-      .attr('y', (t, i) => headH + i * cellH + cellH / 2).attr('dy', '0.35em').text((t) => (narrow ? t : `${t}  ${theme.get(t)}`));
-    const labelW = Math.min(narrow ? 40 : w * 0.38, HV.maxLen(lab));
-    lab.each(function () { HV.fit(this, labelW); });
-    const x0 = labelW + 8, cw = (w - x0) / regions.length;
-    const heads = svg.append('g').selectAll('text').data(regions).join('text').attr('class', 'hv-strong');
-    if (narrow) heads.attr('transform', (r, j) => `translate(${x0 + j * cw + cw / 2},${headH - 6}) rotate(-90)`).attr('dy', '0.35em').text((r) => short[r] || r);
-    else { heads.attr('x', (r, j) => x0 + j * cw + cw / 2).attr('y', headH - 12).attr('text-anchor', 'middle').text((r) => short[r] || r); heads.each(function () { HV.fit(this, cw - 4); }); }
-    const max = d3.max(rows, (r) => r.signals) || 1;
-    const cells = rows.map((r) => ({ ...r, i: trends.indexOf(r.trend), j: regions.indexOf(r.region) }));
-    const rects = svg.append('g').selectAll('rect').data(cells).join('rect')
-      .attr('x', (c) => x0 + c.j * cw + 1).attr('y', (c) => headH + c.i * cellH + 1).attr('width', Math.max(1, cw - 2)).attr('height', cellH - 2).attr('rx', 3)
-      .style('fill', C[0]).style('fill-opacity', (c) => (c.signals === 0 ? 0.05 : 0.18 + 0.77 * (c.signals / max)));
-    svg.append('g').selectAll('text').data(cells.filter((c) => c.signals > 0)).join('text')
-      .attr('class', (c) => (c.signals / max > 0.45 ? 'hv-in' : 'hv-strong hv-num'))
-      .attr('x', (c) => x0 + c.j * cw + cw / 2).attr('y', (c) => headH + c.i * cellH + cellH / 2).attr('dy', '0.35em').attr('text-anchor', 'middle')
-      .style('pointer-events', 'none').text((c) => c.signals);
-    HV.bind(rects, tip, box, (c) => [`${c.trend} ${c.theme}`, c.region, `Signals: ${c.signals}`]);
-  });
-
   // ---------- regulation ----------
   dash.draw('timeline', (el) => {
     const d = HV.ok(el, ['regulations']);
@@ -843,65 +609,6 @@ body{margin:0;background:var(--color-bg)} #dash-root{max-width:1200px;margin:0 a
       .attr('cx', (r) => x(r.t)).attr('cy', (r) => top + lanes.indexOf(r.region) * lane + lane / 2).attr('r', 7)
       .style('fill', (r) => (r.t <= now ? 'var(--cds-chart-muted)' : C[0])).style('stroke', 'var(--color-panel)').style('stroke-width', 2);
     HV.bind(dots, tip, box, (r) => [r.milestone, HV.date(r.t), r.region, `Signal ${r.signal}`, r.t <= now ? 'In force' : 'Upcoming']);
-  });
-
-  dash.draw('cumulative', (el) => {
-    const d = HV.ok(el, ['reg_cumulative']);
-    if (!d) return;
-    const C = HV.C();
-    const rows = d[0].map((r) => ({ ...r, t: HV.parse(r.date) }));
-    const w = el.clientWidth || 480, h = 280, m = { t: 16, r: 16, b: 30, l: 34 };
-    const { svg, tip, box } = HV.frame(el, w, h, 'Step line of the cumulative number of regulatory milestones over time');
-    const x = d3.scaleUtc([new Date(Date.UTC(2025, 3, 1)), new Date(Date.UTC(2030, 2, 31))], [m.l, w - m.r]);
-    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.cumulative) || 1], [h - m.b, m.t]).nice();
-    svg.append('g').attr('class', 'hv-grid').selectAll('line').data(y.ticks(5)).join('line').attr('y1', y).attr('y2', y).attr('x1', m.l).attr('x2', w - m.r);
-    svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('d')).tickSize(0).tickPadding(6)).call((g) => g.select('.domain').remove());
-    svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(0,${h - m.b})`).call(d3.axisBottom(x).ticks(d3.utcYear.every(1)).tickFormat(d3.utcFormat('%Y')).tickSize(0).tickPadding(8)).call((g) => g.select('.domain').remove());
-    const pts = [{ t: x.domain()[0], cumulative: 0 }, ...rows, { t: x.domain()[1], cumulative: rows.length ? rows[rows.length - 1].cumulative : 0 }];
-    svg.append('path').attr('d', d3.line().curve(d3.curveStepAfter).x((p) => x(p.t)).y((p) => y(p.cumulative))(pts))
-      .style('fill', 'none').style('stroke', C[0]).style('stroke-width', 2);
-    const now = new Date();
-    svg.append('line').attr('class', 'hv-ref').attr('x1', x(now)).attr('x2', x(now)).attr('y1', m.t).attr('y2', h - m.b);
-    svg.append('text').attr('x', x(now) + 4).attr('y', m.t + 10).text('Today');
-    const dots = svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', (r) => x(r.t)).attr('cy', (r) => y(r.cumulative)).attr('r', 4.5)
-      .style('fill', C[0]).style('stroke', 'var(--color-panel)').style('stroke-width', 2);
-    const last = rows[rows.length - 1];
-    if (last) svg.append('text').attr('class', 'hv-strong hv-num').attr('x', x(last.t) - 6).attr('y', y(last.cumulative) - 10).attr('text-anchor', 'end').text(`${last.cumulative} milestones`);
-    HV.bind(dots, tip, box, (r) => [r.milestone, HV.date(r.t), r.region, `Milestones in force by then: ${r.cumulative}`]);
-  });
-
-  dash.draw('reg-table', (el) => {
-    const g = dash.data('regulations');
-    if (g.status !== 'ok') { el.replaceChildren(); return; }
-    const rows = g.data.slice().sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    el.replaceChildren(...rows.map((r) => {
-      const tr = document.createElement('tr');
-      const td = (v, cls) => { const c = document.createElement('td'); c.textContent = v ?? ''; if (cls) c.className = cls; return c; };
-      tr.append(td(HV.date(HV.parse(r.date)), 'hv-nowrap'), td(r.milestone), td(r.region, 'hv-nowrap'), td(r.signal, 'hv-nowrap'));
-      return tr;
-    }));
-  });
-
-  // ---------- verification ----------
-  dash.draw('verify', (el) => {
-    const d = HV.ok(el, ['verify_counts']);
-    if (!d) return;
-    const rows = d[0];
-    const w = el.clientWidth || 600, band = 32, top = 4, bottom = 24, h = top + bottom + rows.length * band;
-    const { svg, tip, box } = HV.frame(el, w, h, 'Bar chart of signals by live-source verification status');
-    const labs = svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'hv-strong').attr('x', 0)
-      .attr('y', (r, i) => top + i * band + band / 2).attr('dy', '0.35em').text((r) => r.status);
-    const maxL = Math.min(w * 0.4, HV.maxLen(labs));
-    labs.each(function () { HV.fit(this, maxL); });
-    const x = d3.scaleLinear([0, d3.max(rows, (r) => r.signals) || 1], [maxL + 12, w - 36]).nice();
-    svg.append('g').attr('class', 'hv-grid').selectAll('line').data(x.ticks(5)).join('line').attr('x1', x).attr('x2', x).attr('y1', top).attr('y2', h - bottom);
-    svg.append('g').attr('class', 'hv-axis').attr('transform', `translate(0,${h - bottom})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('d')).tickSize(0).tickPadding(8)).call((g) => g.select('.domain').remove());
-    const col = (s) => (s === 'Verified' ? 'var(--color-ok)' : s === 'Partly verified' ? 'var(--color-warn)' : 'var(--cds-chart-muted)');
-    const bars = svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', x(0)).attr('y', (r, i) => top + i * band + 8)
-      .attr('width', (r) => Math.max(r.signals ? 2 : 0, x(r.signals) - x(0))).attr('height', band - 16).attr('rx', 3).style('fill', (r) => col(r.status));
-    svg.append('g').selectAll('text.v').data(rows).join('text').attr('class', 'hv-num').attr('x', (r) => x(r.signals) + 6)
-      .attr('y', (r, i) => top + i * band + band / 2).attr('dy', '0.35em').text((r) => r.signals);
-    HV.bind(bars, tip, box, (r) => [r.status, `Signals: ${r.signals}`]);
   });
 
   // ---------- all signals ----------
