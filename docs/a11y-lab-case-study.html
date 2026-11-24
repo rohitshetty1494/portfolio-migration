@@ -162,6 +162,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     tl.from($(this).find(".word"), { opacity: 0.2, duration: 0.2, ease: "power1.out", stagger: { each: 0.4 } });
   });
   gsap.set("[text-split]", { opacity: 1 });
+  gsap.to(".char", { y: 0, stagger: 0.02, delay: 0.2, duration: .1 });
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
