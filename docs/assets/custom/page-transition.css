@@ -28,7 +28,7 @@
   top: auto;
   bottom: 0;
   height: 100%;
-  border-radius: 48px 48px 0 0;
+  border-radius: 0;
   transition: height 0.55s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.55s cubic-bezier(0.65, 0, 0.35, 1);
 }
 #page-transition-overlay.pt-entering.pt-start {
