@@ -11,6 +11,22 @@
   justify-content: center;
   pointer-events: none;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Same grain texture as the homepage, inverted (dark base, light flecks)
+   to read correctly on the overlay's near-black background. Scoped to a
+   pseudo-element so the invert filter can't touch the flower mark inside. */
+#page-transition-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("homepage-grain.png");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  filter: invert(1);
+  pointer-events: none;
 }
 
 /* Default state baked into the markup: covers instantly, no transition, so there is
@@ -22,18 +38,17 @@
   border-radius: 0;
 }
 
-/* Navigating AWAY from a page: panel rises up from the bottom edge, rounded leading
-   (top) corners, until it fills the screen. */
+/* Navigating AWAY from a page: panel rises up from the bottom edge, square
+   leading (top) corners, until it fills the screen. */
 #page-transition-overlay.pt-entering {
   top: auto;
   bottom: 0;
   height: 100%;
-  border-radius: 48px 48px 0 0;
-  transition: height 0.55s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  border-radius: 0;
+  transition: height 0.55s cubic-bezier(0.65, 0, 0.35, 1);
 }
 #page-transition-overlay.pt-entering.pt-start {
   height: 0%;
-  border-radius: 0;
 }
 
 /* Arriving on a page: panel stays pinned to the top and shrinks away upward,
